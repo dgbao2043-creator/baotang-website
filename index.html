@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BaotanG</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f0f0f0;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Showcase Rows */
+        .showcase {
+            position: absolute;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .top-row {
+            top: 0;
+            height: 30vh;
+            display: flex;
+            animation: scroll-right 30s linear infinite;
+        }
+
+        .bottom-row {
+            bottom: 0;
+            height: 30vh;
+            display: flex;
+            animation: scroll-left 30s linear infinite;
+        }
+
+        .image-container, .feedback-container {
+            flex: 0 0 25%; /* 4 items visible at once */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .feedback-container {
+            background: rgba(255,255,255,0.8);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .feedback-container p {
+            font-style: italic;
+        }
+
+        .feedback-container .signature {
+            font-family: cursive;
+            margin-top: 10px;
+        }
+
+        /* Duplicate for infinite scroll */
+        .top-row > div:nth-child(n+5) {
+            /* Duplicates */
+        }
+
+        .bottom-row > div:nth-child(n+5) {
+            /* Duplicates */
+        }
+
+        @keyframes scroll-right {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Center Content */
+        .center-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            border-top: 2px solid black;
+            margin: 10px 0;
+        }
+
+        .brand {
+            font-size: 4rem;
+            color: black;
+            font-weight: bold;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: #000;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="showcase top-row">
+        <!-- 4 images + duplicates for infinite -->
+        <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+1" alt="Customer 1"></div>
+        <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+2" alt="Customer 2"></div>
+        <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+3" alt="Customer 3"></div>
+        <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+4" alt="Customer 4"></div>
+        <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+1" alt="Customer 1"></div>
+        <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+2" alt="Customer 2"></div>
+        <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+3" alt="Customer 3"></div>
+        <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+4" alt="Customer 4"></div>
+    </div>
+
+    <div class="center-content">
+        <div class="tagline">Từ chợ quen của mẹ đến thế giới của con</div>
+        <div class="divider"></div>
+        <div class="brand">BaotanG</div>
+        <a href="submit.html" class="button">Ấn vào đây nè khách ơi</a>
+    </div>
+
+    <div class="showcase bottom-row">
+        <!-- 4 feedbacks + duplicates -->
+        <div class="feedback-container">
+            <p>"Sản phẩm tuyệt vời!"</p>
+            <div class="signature">- Khách 1</div>
+        </div>
+        <div class="feedback-container">
+            <p>"Rất hài lòng!"</p>
+            <div class="signature">- Khách 2</div>
+        </div>
+        <div class="feedback-container">
+            <p>"Chất lượng cao!"</p>
+            <div class="signature">- Khách 3</div>
+        </div>
+        <div class="feedback-container">
+            <p>"Sẽ mua lại!"</p>
+            <div class="signature">- Khách 4</div>
+        </div>
+        <div class="feedback-container">
+            <p>"Sản phẩm tuyệt vời!"</p>
+            <div class="signature">- Khách 1</div>
+        </div>
+        <div class="feedback-container">
+            <p>"Rất hài lòng!"</p>
+            <div class="signature">- Khách 2</div>
+        </div>
+        <div class="feedback-container">
+            <p>"Chất lượng cao!"</p>
+            <div class="signature">- Khách 3</div>
+        </div>
+        <div class="feedback-container">
+            <p>"Sẽ mua lại!"</p>
+            <div class="signature">- Khách 4</div>
+        </div>
+    </div>
+</body>
+</html>

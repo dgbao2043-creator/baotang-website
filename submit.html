@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Feedback - BaotanG</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f0f0f0;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Background showcase blurred */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .showcase {
+            position: absolute;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .top-row {
+            top: 0;
+            height: 30vh;
+            display: flex;
+            animation: scroll-right 30s linear infinite;
+        }
+
+        .bottom-row {
+            bottom: 0;
+            height: 30vh;
+            display: flex;
+            animation: scroll-left 30s linear infinite;
+        }
+
+        .image-container, .feedback-container {
+            flex: 0 0 25%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .feedback-container {
+            background: rgba(255,255,255,0.8);
+            padding: 20px;
+            text-align: center;
+        }
+
+        @keyframes scroll-right {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Form */
+        .form-container {
+            position: relative;
+            z-index: 10;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        input, textarea, canvas {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border 0.3s ease;
+        }
+
+        input:focus, textarea:focus, canvas:focus {
+            border: 1px solid #000;
+            outline: none;
+        }
+
+        canvas {
+            background: #f9f9f9;
+            cursor: pointer;
+            height: 200px;
+        }
+
+        .submit-btn {
+            padding: 15px 30px;
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="showcase top-row">
+            <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+1" alt=""></div>
+            <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+2" alt=""></div>
+            <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+3" alt=""></div>
+            <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+4" alt=""></div>
+            <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+1" alt=""></div>
+            <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+2" alt=""></div>
+            <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+3" alt=""></div>
+            <div class="image-container"><img src="https://via.placeholder.com/300x200?text=Customer+4" alt=""></div>
+        </div>
+        <div class="showcase bottom-row">
+            <div class="feedback-container"><p>"Sản phẩm tuyệt vời!"</p><div class="signature">- Khách 1</div></div>
+            <div class="feedback-container"><p>"Rất hài lòng!"</p><div class="signature">- Khách 2</div></div>
+            <div class="feedback-container"><p>"Chất lượng cao!"</p><div class="signature">- Khách 3</div></div>
+            <div class="feedback-container"><p>"Sẽ mua lại!"</p><div class="signature">- Khách 4</div></div>
+            <div class="feedback-container"><p>"Sản phẩm tuyệt vời!"</p><div class="signature">- Khách 1</div></div>
+            <div class="feedback-container"><p>"Rất hài lòng!"</p><div class="signature">- Khách 2</div></div>
+            <div class="feedback-container"><p>"Chất lượng cao!"</p><div class="signature">- Khách 3</div></div>
+            <div class="feedback-container"><p>"Sẽ mua lại!"</p><div class="signature">- Khách 4</div></div>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2>Gửi Feedback Của Bạn</h2>
+        <form id="feedbackForm">
+            <input type="text" id="name" placeholder="Tên của bạn" required>
+            <input type="file" id="photo" accept="image/*" required>
+            <textarea id="feedback" placeholder="Feedback của bạn" required></textarea>
+            <label for="signature">Chữ ký (vẽ bằng chuột hoặc ngón tay):</label>
+            <canvas id="signature" width="500" height="200"></canvas>
+            <button type="submit" class="submit-btn">Gửi</button>
+        </form>
+    </div>
+
+    <script>
+        // Signature Canvas
+        const canvas = document.getElementById('signature');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+
+        canvas.addEventListener('mousedown', () => drawing = true);
+        canvas.addEventListener('mouseup', () => drawing = false);
+        canvas.addEventListener('mouseleave', () => drawing = false);
+        canvas.addEventListener('mousemove', draw);
+
+        canvas.addEventListener('touchstart', (e) => { drawing = true; draw(e); });
+        canvas.addEventListener('touchend', () => drawing = false);
+        canvas.addEventListener('touchcancel', () => drawing = false);
+        canvas.addEventListener('touchmove', draw);
+
+        function draw(e) {
+            if (!drawing) return;
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#000';
+
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX || e.touches[0].clientX) - rect.left;
+            const y = (e.clientY || e.touches[0].clientY) - rect.top;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        // Form Submit
+        document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append('name', document.getElementById('name').value);
+            formData.append('feedback', document.getElementById('feedback').value);
+            formData.append('photo', document.getElementById('photo').files[0]);
+
+            // Canvas to blob
+            canvas.toBlob((blob) => {
+                formData.append('signature', blob, 'signature.png');
+
+                // Gửi đến backend (thay bằng URL thực của bạn, ví dụ: https://your-server.com/submit)
+                fetch('https://formspree.io/f/your-form-id', { // Sử dụng Formspree hoặc tương tự để gửi email
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    if (response.ok) {
+                        alert('Gửi thành công! Chúng tôi sẽ duyệt và đăng lên soon.');
+                    } else {
+                        alert('Có lỗi xảy ra.');
+                    }
+                });
+            }, 'image/png');
+        });
+    </script>
+</body>
+</html>
