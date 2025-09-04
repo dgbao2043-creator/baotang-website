@@ -214,8 +214,7 @@
       formData.append('signature', blob, 'signature.png');
 
       // Gửi đến Google Apps Script Web App URL
-      fetch('https://script.google.com/macros/library/d/1FC0fKo8P2-ELk-e5CjHrytIsLYvqIpUwxcCpTRvJyYMhQJLobiDmaY9N/1', { // Thay YOUR_WEB_APP_URL bằng URL từ bước deploy (ví dụ: https://script.google.com/macros/s/ABC123/exec)
-        method: 'POST',
+      fetch('https://script.google.com/macros/s/AKfycbx23Xo6WMLBVLTmmgFRxeiIT2oVrgPWc9DaWxJhK3qvHEd6SOEVoBuxILANiLayfT8n/exec',
         body: formData
       }).then(response => {
         if (response.ok) {
