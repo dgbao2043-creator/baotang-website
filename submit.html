@@ -215,7 +215,7 @@
 
                 // Gửi đến backend (thay bằng URL thực của bạn, ví dụ: https://your-server.com/submit)
                 fetch('https://formspree.io/f/xovnpnpe', { // Sử dụng Formspree hoặc tương tự để gửi email
-                    method: 'POST',
+                    method='POST',
                     body: formData
                 }).then(response => {
                     if (response.ok) {
