@@ -214,7 +214,8 @@
       formData.append('signature', blob, 'signature.png');
 
       // Gửi đến Google Apps Script Web App URL
-      fetch('https://script.google.com/macros/s/AKfycbx23Xo6WMLBVLTmmgFRxeiIT2oVrgPWc9DaWxJhK3qvHEd6SOEVoBuxILANiLayfT8n/exec',
+      fetch('https://script.google.com/macros/s/AKfycbx23Xo6WMLBVLTmmgFRxeiIT2oVrgPWc9DaWxJhK3qvHEd6SOEVoBuxILANiLayfT8n/exec', {
+        method: 'POST',
         body: formData
       }).then(response => {
         if (response.ok) {
