@@ -201,21 +201,21 @@
         }
 
         // Form Submit
-        document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+        document.getElementById('feedbackForm').addEventListener('click', (e) => {
             e.preventDefault();
 
             const formData = new FormData();
             formData.append('name', document.getElementById('name').value);
-            formData.append('feedback', document.getElementById('feedback').value);
             formData.append('photo', document.getElementById('photo').files[0]);
+            formData.append('feedback', document.getElementById('feedback').value);
 
-            // Canvas to blob
+            // Convert canvas to blob for signature
             canvas.toBlob((blob) => {
                 formData.append('signature', blob, 'signature.png');
 
-                // Gửi đến backend (thay bằng URL thực của bạn, ví dụ: https://your-server.com/submit)
-                fetch('https://formspree.io/f/xovnpnpe', { // Sử dụng Formspree hoặc tương tự để gửi email
-                    method='POST',
+                // Gửi đến Formspree (thay YOUR_FORM_ID bằng ID từ formspree.io)
+                fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                    method: 'POST',
                     body: formData
                 }).then(response => {
                     if (response.ok) {
@@ -223,6 +223,8 @@
                     } else {
                         alert('Có lỗi xảy ra.');
                     }
+                }).catch(error => {
+                    alert('Lỗi khi gửi dữ liệu: ' + error.message);
                 });
             }, 'image/png');
         });
